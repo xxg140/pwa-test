@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <!-- 调试代码：记录启动时间 -->
+  <script>window.__START_TIME = Date.now(); console.log('[调试] HTML 开始解析:', 0);</script>
   <!-- 添加 CSP，模拟 FRV 项目 -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.cn https://fonts.gstatic.cn; style-src 'self' 'unsafe-inline' https://fonts.googleapis.cn https://fonts.gstatic.cn; font-src 'self' https://fonts.gstatic.cn data:; img-src 'self' data:; connect-src 'self' ws: wss: https://fonts.googleapis.cn https://fonts.gstatic.cn;">
   <!-- 添加缓存控制，模拟 FRV 项目 -->
@@ -21,19 +23,33 @@
   <link rel="stylesheet" href="style.css">
   <!-- 模拟 registerSW.js，放在 head 中 -->
   <script>
+    console.log('[调试] 主题脚本执行:', Date.now() - window.__START_TIME, 'ms');
     if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js', { scope: '/' })})}
   </script>
-  <!-- 主题检测脚本，模拟 FRV 项目 -->
-  <script>
-    (function() {
-      var t = localStorage.getItem('pwa_test_theme');
-      if (t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
+  <script>console.log('[调试] head 脚本加载完成:', Date.now() - window.__START_TIME, 'ms');</script>
 </head>
 <body>
+  <!-- 调试面板，放在最前面确保不被覆盖 -->
+  <div id="debug-panel" style="position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,0.9);color:#0f0;font-size:14px;padding:15px;z-index:999999;font-family:monospace;white-space:pre-wrap;max-height:200px;overflow:auto;"></div>
+  <script>
+    const debugPanel = document.getElementById('debug-panel');
+    const logs = [];
+    function addLog(msg) {
+      const time = Date.now() - window.__START_TIME;
+      const log = `[${time}ms] ${msg}`;
+      logs.push(log);
+      debugPanel.textContent = logs.join('\n');
+      console.log('[调试]', msg, time, 'ms');
+    }
+    addLog('HTML 开始解析');
+    // 监听各种事件，记录时间戳
+    window.addEventListener('DOMContentLoaded', () => addLog('DOMContentLoaded'));
+    window.addEventListener('load', () => addLog('window.load'));
+    // 监听 Vue 应用挂载（模拟）
+    setTimeout(() => addLog('应用挂载（模拟）'), 500);
+    // 15秒后隐藏调试面板
+    setTimeout(() => { debugPanel.style.display = 'none'; }, 15000);
+  </script>
   <div id="app">
     <h1>PWA 测试页面</h1>
     <button id="theme-btn" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
@@ -41,6 +57,7 @@
     </button>
     <p id="theme-info" style="margin-top: 10px;"></p>
   </div>
+  <script>console.log('[调试] body 解析完成:', Date.now() - window.__START_TIME, 'ms');</script>
   <!-- 模拟 Vue 应用的 module script -->
   <script type="module">
     // 模拟 Vue 应用初始化延迟
