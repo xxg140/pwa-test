@@ -1,0 +1,8 @@
+{
+  "name": "PWA 测试",
+  "short_name": "PWA测试",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ff0000",
+  "theme_color": "#00ff00"
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- 添加 CSP，模拟 FRV 项目 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.cn https://fonts.gstatic.cn; style-src 'self' 'unsafe-inline' https://fonts.googleapis.cn https://fonts.gstatic.cn; font-src 'self' https://fonts.gstatic.cn data:; img-src 'self' data:; connect-src 'self' ws: wss: https://fonts.googleapis.cn https://fonts.gstatic.cn;">
+  <!-- 添加缓存控制，模拟 FRV 项目 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000">
+  <title>PWA 测试</title>
+  <link rel="manifest" href="manifest.json">
+  <!-- 模拟 FRV 项目的外部资源 -->
+  <link rel="preconnect" href="https://fonts.googleapis.cn">
+  <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
+  <link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>PWA 测试页面</h1>
+  </div>
+  <script src="chart.min.js"></script>
+  <script>
+    // 模拟 Vue 应用初始化延迟
+    setTimeout(() => {
+      document.getElementById('app').innerHTML = '<h1>应用加载完成</h1>';
+    }, 100);
+    
+    // 注册 Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

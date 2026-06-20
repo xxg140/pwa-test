@@ -1,0 +1,12 @@
+/* 外部 CSS 文件 - 改成绿色背景 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { 
+  background-color: #00ff00; 
+  color: #000000;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, sans-serif;
+}
+h1 { font-size: 24px; }
