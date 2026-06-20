@@ -1,12 +1,35 @@
-/* 外部 CSS 文件 - 改成绿色背景 */
+/* 外部 CSS 文件 - 支持深色主题 */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { 
-  background-color: #00ff00; 
+  background-color: #ffffff; 
   color: #000000;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: -apple-system, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 h1 { font-size: 24px; }
+button {
+  background-color: #007AFF;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+/* 深色主题 */
+html.dark, html.dark body {
+  background-color: #000000;
+  color: #ffffff;
+}
+html.dark button {
+  background-color: #0A84FF;
+}
+html.dark button:hover {
+  background-color: #409cff;
+}

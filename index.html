@@ -23,14 +23,47 @@
   <script>
     if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js', { scope: '/' })})}
   </script>
+  <!-- 主题检测脚本，模拟 FRV 项目 -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('pwa_test_theme');
+      if (t === 'dark' || (t !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <h1>PWA 测试页面</h1>
+    <button id="theme-btn" style="margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer;">
+      切换主题
+    </button>
+    <p id="theme-info" style="margin-top: 10px;"></p>
+  </div>
   <!-- 模拟 Vue 应用的 module script -->
   <script type="module">
     // 模拟 Vue 应用初始化延迟
     await new Promise(resolve => setTimeout(resolve, 500));
-    document.getElementById('app').innerHTML = '<h1>应用加载完成</h1>';
+    
+    // 主题切换功能
+    const themeBtn = document.getElementById('theme-btn');
+    const themeInfo = document.getElementById('theme-info');
+    
+    function updateThemeInfo() {
+      const isDark = document.documentElement.classList.contains('dark');
+      themeInfo.textContent = '当前主题: ' + (isDark ? '深色' : '浅色');
+      themeBtn.textContent = '切换到' + (isDark ? '浅色' : '深色') + '主题';
+    }
+    
+    themeBtn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('pwa_test_theme', isDark ? 'light' : 'dark');
+      updateThemeInfo();
+    });
+    
+    updateThemeInfo();
   </script>
   <script src="chart.min.js"></script>
 </body>
