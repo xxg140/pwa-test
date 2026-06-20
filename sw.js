@@ -1,11 +1,11 @@
 // 模拟 FRV 项目的 Workbox 缓存策略
-const CACHE_NAME = 'pwa-test-v1';
+const CACHE_NAME = 'pwa-test-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/chart.min.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './style.css',
+  './chart.min.js',
+  './manifest.json'
 ];
 
 // 安装时缓存资源
