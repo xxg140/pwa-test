@@ -21,19 +21,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <h1>PWA 测试页面</h1>
-  </div>
+  <div id="app"></div>
+  <!-- 模拟 Vue 应用的 module script -->
+  <script type="module">
+    // 模拟 Vue 应用初始化延迟
+    await new Promise(resolve => setTimeout(resolve, 500));
+    document.getElementById('app').innerHTML = '<h1>应用加载完成</h1>';
+  </script>
   <script src="chart.min.js"></script>
   <script>
-    // 模拟 Vue 应用初始化延迟
-    setTimeout(() => {
-      document.getElementById('app').innerHTML = '<h1>应用加载完成</h1>';
-    }, 100);
-    
     // 注册 Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
     }
   </script>
 </body>
