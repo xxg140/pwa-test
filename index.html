@@ -19,6 +19,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin>
   <link href="https://fonts.googleapis.cn/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <!-- 模拟 registerSW.js，放在 head 中 -->
+  <script>
+    if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/sw.js', { scope: '/' })})}
+  </script>
 </head>
 <body>
   <div id="app"></div>
@@ -29,13 +33,5 @@
     document.getElementById('app').innerHTML = '<h1>应用加载完成</h1>';
   </script>
   <script src="chart.min.js"></script>
-  <script>
-    // 注册 Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-      });
-    }
-  </script>
 </body>
 </html>
